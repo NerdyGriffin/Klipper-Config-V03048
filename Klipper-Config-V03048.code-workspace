@@ -1,10 +1,16 @@
 {
 	"folders": [
 		{
+			"name": "config (on V0.3048)",
 			"path": "."
 		},
 		{
-			"path": "/home/pi/github/NerdyGriffin/Klipper-Config-VT1548"
+			"name": "klipper-nerdygriffin-macros",
+			"path": "../../klipper-nerdygriffin-macros"
+		},
+		{
+			"name": "Klipper-Config-VT1548",
+			"path": "../../github/NerdyGriffin/Klipper-Config-VT1548"
 		}
 	],
 	"settings": {
