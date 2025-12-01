@@ -63,17 +63,17 @@ variable_y_calibrated: 116  # V0: 116, VT: 120
 [gcode_macro HEAT_SOAK]
 variable_max_chamber_temp: 60  # Override in printer.cfg
 variable_led_count: 10
-variable_chamber_sensor: ""  # Auto-detect or override
+variable_chamber_sensor_name: ""  # Auto-detect or override
 variable_ext_assist_multiplier: 4  # Override for tuning
 gcode:
     # Auto-detect chamber sensor
-    {% set chamber_sensor = chamber_sensor if chamber_sensor != "" else
+    {% set chamber_sensor_name = chamber_sensor_name if chamber_sensor_name != "" else
         ("temperature_sensor chamber" if "temperature_sensor chamber" in printer else
          "temperature_sensor nitehawk-36" if "temperature_sensor nitehawk-36" in printer else
          none) %}
 
-    {% if chamber_sensor %}
-        {% if printer[chamber_sensor].temperature < target_chamber %}
+    {% if chamber_sensor_name %}
+        {% if printer[chamber_sensor_name].temperature < target_chamber %}
             # ... heating logic
         {% endif %}
     {% endif %}
@@ -96,7 +96,7 @@ gcode:
 [gcode_macro HEAT_SOAK]
 variable_max_chamber_temp: 58  # V0 measured limit
 variable_ext_assist_multiplier: 5  # V0 tuning
-# variable_chamber_sensor: "temperature_sensor chamber"  # Force specific sensor
+# variable_chamber_sensor_name: "temperature_sensor chamber"  # Force specific sensor
 ```
 
 **Benefits**:
