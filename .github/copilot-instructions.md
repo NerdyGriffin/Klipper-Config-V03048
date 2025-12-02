@@ -2,6 +2,17 @@
 
 This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR Pico V1.0 mainboard and an LDO Nitehawk-36 toolboard. It uses hardware-agnostic macros from `nerdygriffin-macros`, plus local printer-specific overrides.
 
+## NFS Mount Architecture (CRITICAL)
+
+⚠️ **Macro edits**: ONLY edit `/home/pi/printers/v0-3048/klipper-nerdygriffin-macros` (never the vt-1548 path)
+⚠️ **Config edits**: Both `/home/pi/printers/v0-3048/printer_data/config` and `/home/pi/printers/vt-1548/printer_data/config` are writable
+
+Paths visible in workspace:
+- `v0-3048/klipper-nerdygriffin-macros` → **WRITABLE** (local, edit here)
+- `vt-1548/klipper-nerdygriffin-macros` → **READ-ONLY** (NFS, reference only)
+- `v0-3048/printer_data/config` → **WRITABLE** (local)
+- `vt-1548/printer_data/config` → **WRITABLE** (NFS, cross-printer dev)
+
 ## Architecture Overview
 - Main entry: `printer.cfg` includes all subsystems and plugin configs.
 - Symlinked plugin: `nerdygriffin-macros/` (shared macros), `KAMP/` (Adaptive Purge/Smart Park). Do not modify symlinked content; override locally.
