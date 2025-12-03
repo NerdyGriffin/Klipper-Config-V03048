@@ -4,23 +4,16 @@ This is the contents of the /home/pi/printer_data/config/ directory
 ```
 $ tree
 .
+├── .github
+│   └── [copilot instructions & prompts]
 ├── autotune.cfg
-├── backup
-│   └── [printer config backups]
 ├── chamber_leds.cfg
 ├── crowsnest.conf
 ├── deprecated
 │   └── [archived configs]
+├── docs
+│   └── [documentation files]
 ├── homing.cfg
-├── KAMP -> /home/pi/Klipper-Adaptive-Meshing-Purging/Configuration
-├── KAMP_Settings.cfg
-├── Klicky-Probe
-│   ├── klicky-bed-mesh-calibrate.cfg
-│   ├── klicky-macros.cfg
-│   ├── klicky-probe.cfg
-│   ├── klicky-quad-gantry-level.cfg
-│   ├── klicky-screws-tilt-calculate.cfg
-│   ├── klicky-specific.cfg
 ├── KAMP -> [symlink to KAMP installation]
 ├── KAMP_Settings.cfg
 ├── Klicky-Probe
@@ -31,6 +24,7 @@ $ tree
 ├── printer.cfg
 ├── print_macros.cfg
 ├── status-macros.cfg
-└── [other config files]
+└── TEST_SPEED.cfg
 
+Note: Symlinked directories (KAMP, nerdygriffin-macros) contain files not tracked in this repo.
 See git history for complete file listing.
