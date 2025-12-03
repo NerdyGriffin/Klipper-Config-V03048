@@ -73,6 +73,15 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
   ```
 - Input shaper: ADXL345 (`[resonance_tester]` in `printer.cfg`).
 
+## Terminal Command Best Practices
+- **Always use verbose flags** (`-v` or `--verbose`) with file operations for visual confirmation:
+  - `cp -v` instead of `cp`
+  - `mv -v` instead of `mv`
+  - `rm -v` instead of `rm`
+  - `rmdir -v` instead of `rmdir`
+  - `ln -sfv` instead of `ln -sf`
+- This provides immediate feedback and helps catch errors early.
+
 ## Cautions
 - Do not edit symlinked `nerdygriffin-macros/` or `KAMP/`; override via local macros/variables after includes.
 - Panel LED macros assume `panel_left/right` exist; leave placeholders or add actual neopixel definitions before enabling.
