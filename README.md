@@ -22,7 +22,7 @@ This repository contains the Klipper configuration for a Voron 0.2 (V0.3048) usi
 ## Notes
 - Symlinked directories (`KAMP`, `nerdygriffin-macros`) contain files not tracked in this repo. Override behavior in local config; do not edit symlinked content.
 
-This is the contents of the `/home/pi/printer_data/config/` directory
+This is the contents of the `/home/pi/printer_data/config/` directory [NOTE: this line may be redundant. consider removing it]
 
 ```
 $ tree
