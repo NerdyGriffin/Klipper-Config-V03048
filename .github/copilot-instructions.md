@@ -36,7 +36,7 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 
 ## Integration Points
 - `nerdygriffin-macros` includes (in `printer.cfg`): auto PID, beeper, client hooks, filament mgmt, heat soak, maintenance, rename/save_config, shaketune, shutdown, tacho, utilities.
-- KAMP includes: `Line_Purge.cfg`, `Smart_Park.cfg` (Adaptive_Meshing/Voron_Purge are optional/commented).
+- KAMP ([Klipper Adaptive Meshing & Purging](https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging)) includes: `Line_Purge.cfg`, `Smart_Park.cfg` for intelligent bed mesh and purge positioning based on print geometry (Adaptive_Meshing/Voron_Purge are optional/commented).
 - Nozzle wiper: `CLEAN_NOZZLE` maps to `NW_CLEAN_NOZZLE` in `nozzlewiper.cfg` (servo on `gpio29`, positions in `NW_BUCKET_POS`).
 
 ## Hardware & Limits (V0.3048)
