@@ -34,8 +34,6 @@ $ tree
 ├── crowsnest.conf
 ├── deprecated
 │   └── [archived configs]
-├── docs
-│   └── [documentation files]
 ├── homing.cfg
 ├── KAMP -> [symlink to KAMP installation]
 ├── KAMP_Settings.cfg
