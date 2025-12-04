@@ -86,6 +86,11 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 - Panel LED macros assume `panel_left/right` exist; leave placeholders or add actual neopixel definitions before enabling.
 - AFC macros are conditionally referenced in `idle_timeout` but not required on this printer.
 
+## Deprecated Files
+- Files in `deprecated/` are archived configs kept for reference only.
+- Do not document or suggest using deprecated files.
+- These files are tracked for historical reference, but they are not actively maintained.
+
 ## File Landmarks
 - Entry: `printer.cfg`
 - Homing: `homing.cfg`
