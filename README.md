@@ -39,4 +39,7 @@ This repository contains the Klipper configuration for a Voron 0.2 (V0.3048) usi
 
 ## Credits
 
+- [chirpy2605](https://github.com/chirpy2605) - Creator of many of my favorite Voron mods, including DragonBurner and Nozzle Wiper v2.
+- [MapleLeafMakers](https://github.com/MapleLeafMakers) - Matchstick Diffusers and more
+  - https://mods.vorondesign.com/details/SMqxDRtUkiizoQXq5nhQQ
 - [LDO Nitehawk-36 Toolboard](https://github.com/MotorDynamicsLab/Nitehawk-36) - RP2040-based USB toolboard with integrated TMC2209, accelerometer, and tachometer-enabled fans
