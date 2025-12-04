@@ -21,6 +21,22 @@ This repository contains the Klipper configuration for a Voron 0.2 (V0.3048) usi
 
 ---
 
+## Hardware Mods
+
+### Nozzle Wiper v2
+- **Source**: [chirpy2605/voron - V0/NozzleWiper](https://github.com/chirpy2605/voron/tree/main/V0/NozzleWiper)
+- **Description**: Servo-actuated nozzle purge bucket and brush system for automated nozzle cleaning
+- **Features**:
+  - SG90 servo-controlled deployment (extends 90°, retracts when not in use)
+  - Integrated purge bucket and brush
+  - Hot-to-cold cleaning capability (wipes while cooling to minimize oozing)
+  - Randomized wipe patterns across brush depth
+  - Configurable wipe count and speeds
+- **Configuration**: See `nozzlewiper.cfg` for setup instructions
+- **Macro**: `CLEAN_NOZZLE` (wraps `NW_CLEAN_NOZZLE`)
+
+---
+
 ## Credits
 
 - [LDO Nitehawk-36 Toolboard](https://github.com/MotorDynamicsLab/Nitehawk-36) - RP2040-based USB toolboard with integrated TMC2209, accelerometer, and tachometer-enabled fans
