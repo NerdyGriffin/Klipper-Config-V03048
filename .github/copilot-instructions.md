@@ -16,7 +16,7 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 - Optional probe: `Klicky-Probe/` present but commented out; Z homes to endstop centrally without Beacon.
 
 ## Key Subsystems
-- Status LEDs (`status-macros.cfg`): `STATUS_*` patterns drive `bed_light` and Nitehawk `toolhead` pixels. Panel LED macros are wired to `panel_left/right` placeholders via `neopixel-placeholder.cfg`.
+- Status LEDs (`status_macros.cfg`): `STATUS_*` patterns drive `bed_light` and Nitehawk `toolhead` pixels. Panel LED macros are wired to `panel_left/right` placeholders via `neopixel-placeholder.cfg`.
 - Homing (`homing.cfg`):
   - Sensorless XY via TMC2209 with pre/post current changes (`_HOME_PRE_AXIS`/`_HOME_POST_AXIS`).
   - Z homes at center (`X=60,Y=60`) using switch endstop; `_CG28` provided for conditional homing.
@@ -32,7 +32,7 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 - Check optional hardware/macros before calling:
   `{% if printer['gcode_macro AFC_BRUSH'] is defined %} AFC_BRUSH {% endif %}`
 - Status signaling: call `STATUS_*` before long-running actions and `RESET_STATUS`/`STATUS_READY` when done.
-- Delayed actions: use `[delayed_gcode ...]` with `UPDATE_DELAYED_GCODE` (see `status-macros.cfg` notify heaters).
+- Delayed actions: use `[delayed_gcode ...]` with `UPDATE_DELAYED_GCODE` (see `status_macros.cfg` notify heaters).
 
 ## Integration Points
 - `nerdygriffin-macros` includes (in `printer.cfg`): auto PID, beeper, client hooks, filament mgmt, heat soak, maintenance, rename/save_config, shaketune, shutdown, tacho, utilities.
@@ -89,7 +89,10 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 ## File Landmarks
 - Entry: `printer.cfg`
 - Homing: `homing.cfg`
-- Status LEDs: `status-macros.cfg`
+- Status LEDs: `status_macros.cfg`
 - Start/End: `print_macros.cfg`
 - Wiper: `nozzlewiper.cfg`
 - Shared macros: `nerdygriffin-macros/`
+
+## Ease of use
+- If I repeated request actions that contradict these instructions, propose ways to improve these instructions.

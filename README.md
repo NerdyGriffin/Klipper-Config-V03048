@@ -7,10 +7,29 @@ This repository contains the Klipper configuration for a Voron 0.2 (V0.3048) usi
 - Symlinked plugins: `nerdygriffin-macros/` (shared macros), `KAMP/` (Adaptive Purge/Smart Park). Do not modify symlinked content; override locally.
 - Hardware-specific: `nitehawk-36.cfg` (toolhead), `nozzlewiper.cfg` (servo + clean).
 
-## Notes
-- Symlinked directories (`KAMP`, `nerdygriffin-macros`) contain files not tracked in this repo. Override behavior in local config; do not edit symlinked content.
+## Shared Macros Integration
 
-This is the contents of the `/home/pi/printer_data/config/` directory [NOTE: this line may be redundant. consider removing it]
+This config uses the [klipper-nerdygriffin-macros](https://github.com/NerdyGriffin/klipper-nerdygriffin-macros) plugin for hardware-agnostic macro support:
+- 13 consolidated macros included via `nerdygriffin-macros/` symlink
+- Automatic AFC detection and fallback support
+- Per-printer customization via variable overrides in `printer.cfg`
+
+Macros included:
+- `auto_pid.cfg` - Automated PID tuning
+- `beeper.cfg` - M300 beeper support
+- `client_macros.cfg` - Pause/Resume/Cancel hooks
+- `filament_management.cfg` - Load/Unload/Purge operations
+- `heat_soak.cfg` - Chamber preheating with LED animations
+- `maintenance_macros.cfg` - Maintenance helpers (SETTLE_BELT_TENSION, etc.)
+- `rename_existing.cfg` - Enhanced G-code overrides
+- `save_config.cfg` - Safe config saving
+- `shaketune.cfg` - Shake&Tune wrappers
+- `shutdown.cfg` - Safe shutdown operations
+- `status_macros.cfg` - Status LED patterns
+- `tacho_macros.cfg` - Fan preflight checks
+- `utility_macros.cfg` - Utility helpers
+
+## Directory Structure
 
 ```
 ├── .github
@@ -25,14 +44,19 @@ This is the contents of the `/home/pi/printer_data/config/` directory [NOTE: thi
 ├── KAMP_Settings.cfg
 ├── Klicky-Probe
 │   └── [optional probe macros]
+├── KlipperScreen.conf
+├── mainsail.cfg
+├── moonraker_obico_macros.cfg
+├── moonraker-obico-update.cfg
 ├── nerdygriffin-macros -> [symlink to shared macros]
 ├── nitehawk-36.cfg
 ├── nozzlewiper.cfg
 ├── printer.cfg
 ├── print_macros.cfg
-├── status-macros.cfg
-└── TEST_SPEED.cfg
+├── TEST_SPEED.cfg
+└── timelapse.cfg
 ```
 
-Note: Symlinked directories (KAMP, nerdygriffin-macros) contain files not tracked in this repo.
-See git history for complete file listing.
+**Notes:**
+- Symlinked directories (`KAMP`, `nerdygriffin-macros`) contain files not tracked in this repo
+- Override behavior in local config; do not edit symlinked content
