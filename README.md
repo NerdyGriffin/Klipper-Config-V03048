@@ -18,7 +18,3 @@ This repository contains the Klipper configuration for a Voron 0.2 (V0.3048) usi
 - [KlipperScreen](https://github.com/KlipperScreen/KlipperScreen)
 - [moonraker-obico](https://github.com/TheSpaghettiDetective/moonraker-obico)
 - [timelapse](https://github.com/mainsail-crew/moonraker-timelapse)
-
-## Notes
-- Symlinked directories (`KAMP`, `nerdygriffin-macros`) contain files not tracked in this repo
-- Override behavior in local config; do not edit symlinked content
