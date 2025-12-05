@@ -101,3 +101,4 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 
 ## Ease of use
 - If I repeated request actions that contradict these instructions, propose ways to improve these instructions.
+- **Important:** Do not reference `copilot-instructions.md` in user-facing documentation (README.md, docs/*.md). These are AI agent instructions, not user docs. User-facing docs should be self-contained.
