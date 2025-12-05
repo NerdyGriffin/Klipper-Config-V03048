@@ -58,7 +58,7 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 ## Workflows
 - Restart + tail logs after config edits:
   ```bash
-  sudo systemctl restart klipper && sleep 2 && tail -n 60 ~/printer_data/logs/klippy.log
+  curl -s -X POST "http://localhost:7125/printer/gcode/script?script=FIRMWARE_RESTART" && sleep 2 && tail -n 60 ~/printer_data/logs/klippy.log
   ```
 - Test macros quickly:
   ```bash
