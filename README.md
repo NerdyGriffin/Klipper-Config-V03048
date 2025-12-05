@@ -5,7 +5,7 @@ This repository contains the Klipper configuration for a Voron 0.2 (V0.3048) usi
 ## Architecture Overview
 - Main entry: `printer.cfg` includes subsystems and plugins.
 - Symlinked plugins: `nerdygriffin-macros/` (shared macros), `KAMP/` (Adaptive Purge/Smart Park). Do not modify symlinked content; override locally.
-- Hardware-specific: `nitehawk-36.cfg` (toolhead), `nozzlewiper.cfg` (servo + clean).
+- Hardware-specific: `nitehawk-36.cfg` (toolhead).
 
 ## Installed Klipper Plugins
 
@@ -32,8 +32,8 @@ This repository contains the Klipper configuration for a Voron 0.2 (V0.3048) usi
   - Hot-to-cold cleaning capability (wipes while cooling to minimize oozing)
   - Randomized wipe patterns across brush depth
   - Configurable wipe count and speeds
-- **Configuration**: See `nozzlewiper.cfg` for setup instructions
-- **Macro**: `CLEAN_NOZZLE` (wraps `NW_CLEAN_NOZZLE`)
+- **Configuration**: See `nerdygriffin-macros/nozzle_wiper.cfg` for setup instructions
+- **Macro**: `CLEAN_NOZZLE`
 
 ---
 
