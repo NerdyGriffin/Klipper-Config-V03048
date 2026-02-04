@@ -49,6 +49,7 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 - Beeper: override at end of `printer.cfg`: `[pwm_cycle_time beeper] pin: gpio23`.
 - Chamber heating: via bed+hotend assist in `HEAT_SOAK` macro (max 58°C).
   - The chamber is poorly insulated, so the max chamber target is limited to avoid `TEMPERATURE_WAIT` for a temperature that it can never reach.
+- **Note**: See the authoritative values in `printer.cfg` for current motion limits, speeds, and calibrated offsets. Do not rely on hard-coded values in documentation; always check the actual config.
 
 ## Typical Overrides (Local only)
 - `HEAT_SOAK` for V0: `variable_max_chamber_target: 58`, `variable_ext_assist_multiplier: 5` (see `printer.cfg`).
