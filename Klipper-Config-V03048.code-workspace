@@ -9,6 +9,10 @@
       "path": "/home/pi/printer_data/config"
     },
     {
+      "name": "V0-3048: klippain_shaketune",
+      "path": "/home/pi/klippain_shaketune"
+    },
+    {
       "name": "V0-3048: macros",
       "path": "/home/pi/klipper-nerdygriffin-macros"
     },
