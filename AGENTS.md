@@ -17,11 +17,17 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 - Optional probe: `Klicky-Probe/` present but commented out; Z homes to endstop centrally without Beacon.
 
 ## Key Subsystems
-- Status LEDs (`status_macros.cfg`): `STATUS_*` patterns drive `bed_light` and Nitehawk `toolhead` pixels. LED variables are overridden in `nerdygriffin-macros.cfg` (`_LED_VARS`).
-- Homing (`homing.cfg`):
-  - Sensorless XY via TMC2209 with pre/post current changes (`_HOME_PRE_AXIS`/`_HOME_POST_AXIS`).
-  - Z homes at center (`X=60,Y=60`) using switch endstop; `_CG28` provided for conditional homing.
-- Print flow (`print_macros.cfg`):
+- Status LEDs (`nerdygriffin-macros/status_macros.cfg`): `STATUS_*` patterns drive `bed_light` and Nitehawk `toolhead` pixels. LED variables are overridden in `nerdygriffin-macros.cfg` (`_LED_VARS`).
+- Homing — **two files that extend each other, no overlap**:
+  - `nerdygriffin-macros/homing.cfg` (shared): `_CG28`, `_HOME_VARS`, `_HOME_PRE_AXIS`/`_HOME_POST_AXIS`,
+    `_HOME_EDGE_CLEARANCE`, `TEST_SENSORLESS_HOME_*`.
+  - `homing_override.cfg` (local, included straight after): `_HOME_X`/`_HOME_Y`/`_HOME_Z` and
+    `[homing_override]`. Load-bearing — `[homing_override]` is what routes `G28` to those macros.
+    Named `homing_override.cfg` rather than `homing.cfg` to keep it distinct from the shared file.
+  - Sensorless XY via TMC2209 with pre/post current changes; Z homes at bed center using a switch endstop.
+  - VT-1548 has no local counterpart: `[beacon]` supplies the `homing_override` equivalent there
+    (`beacon.cfg` notes the section "should be removed... it is handled by the `[beacon]` section").
+- Print flow (`nerdygriffin-macros/print_macros.cfg`):
   - `PRINT_START`: heat soak based on bed temp, hot scrub via `CLEAN_NOZZLE`, re-home Z, `SMART_PARK` (KAMP), then purge (`LINE_PURGE`).
   - `PRINT_END`: retract, park at rear-10mm, disable sensors, delayed save/shutdown.
 - Filament sensors (two, on different MCUs):
@@ -39,12 +45,12 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 - LDO Nitehawk-36: Extruder definition in `nitehawk-36.cfg`; toolhead LEDs and bed neopixel configured in `printer.cfg`.
 
 ## Patterns & Conventions
-- Always prefer `_CG28` for conditional homing; `homing.cfg` wraps raw `G28` with current/LED/fan handling.
+- Always prefer `_CG28` for conditional homing; `homing_override.cfg` wraps raw `G28` with current/LED/fan handling.
 - Save/restore state around disruptive ops: `SAVE_GCODE_STATE`/`RESTORE_GCODE_STATE` (with `MOVE=1` when needed).
 - Check optional hardware/macros before calling:
   `{% if printer['gcode_macro AFC_BRUSH'] is defined %} AFC_BRUSH {% endif %}`
 - Status signaling: call `STATUS_*` before long-running actions and `RESET_STATUS`/`STATUS_READY` when done.
-- Delayed actions: use `[delayed_gcode ...]` with `UPDATE_DELAYED_GCODE` (see `status_macros.cfg` notify heaters).
+- Delayed actions: use `[delayed_gcode ...]` with `UPDATE_DELAYED_GCODE` (see `nerdygriffin-macros/status_macros.cfg` notify heaters).
 
 ## Integration Points
 - `nerdygriffin-macros` includes (in `printer.cfg`): auto PID, beeper, client hooks, filament mgmt, heat soak, maintenance, rename/save_config, shaketune, shutdown, tacho, utilities.
@@ -111,9 +117,9 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 
 ## File Landmarks
 - Entry: `printer.cfg`
-- Homing: `homing.cfg`
-- Status LEDs: `status_macros.cfg`
-- Start/End: `print_macros.cfg`
+- Homing: `nerdygriffin-macros/homing.cfg` (shared helpers) + `homing_override.cfg` (local `_HOME_*`)
+- Status LEDs: `nerdygriffin-macros/status_macros.cfg`
+- Start/End: `nerdygriffin-macros/print_macros.cfg`
 - Wiper: `nerdygriffin-macros/nozzle_wiper.cfg` (overrides in `nerdygriffin-macros.cfg`)
 - Shared macros: `nerdygriffin-macros/`
 
