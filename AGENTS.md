@@ -57,7 +57,7 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 ## Hardware & Limits (V0.3048)
 - Serial Number: V0.3048
 - Hostname: V0-3048
-- Motion: CoreXY, `max_velocity: 500`, `max_accel: 20000`, `max_z_velocity: 50`, `max_z_accel: 300`.
+- Motion: CoreXY. Tuned limits (`max_velocity`, `max_accel`, `max_z_velocity`, `max_z_accel`) live in `[printer]` in `printer.cfg`.
 - Build volume: 120×120×120 (Z endstop calibrated; see SAVE_CONFIG block).
 - Bed heater: Pico `heater_bed` on `gpio21`; chamber thermistor on `gpio27` (`temperature_sensor chamber`).
 - LEDs: `bed_light` (1 GRBW), toolhead pixels on Nitehawk; panel LEDs are placeholders.
