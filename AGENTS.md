@@ -30,18 +30,32 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 - Print flow (`nerdygriffin-macros/print_macros.cfg`):
   - `PRINT_START`: heat soak based on bed temp, hot scrub via `CLEAN_NOZZLE`, re-home Z, `SMART_PARK` (KAMP), then purge (`LINE_PURGE`).
   - `PRINT_END`: retract, park at rear-10mm, disable sensors, delayed save/shutdown.
-- Filament sensors (two, on different MCUs):
+- Filament sensors (three defined, two active, on different MCUs):
   - `encoder_sensor` (`filament_motion_sensor`, SKR Pico `^gpio16`): flow/clog detection. Enabled after
-    start, disabled on end and idle timeout. A `switch_sensor` block sits commented out on the *same*
-    pin in `printer.cfg` — the two are mutually exclusive.
-  - `extruder_sensor` (`filament_switch_sensor`, `^!nhk:gpio3` in `nitehawk-36.cfg`): toolhead switch.
-    `PAUSE` is deliberately commented out of its `runout_gcode` — the switch mount / ball bearing /
-    filament path tolerances mean filament must be pushed to one side to trigger it. That is a
-    **mechanical** fault, not an electrical one; the invert is correct and the switch reports
-    consistently when pressed.
+    start, disabled on end and idle timeout. Its `runout_gcode` calls `_PAUSE_IF_PRINTING`. A
+    `switch_sensor` block sits commented out on the *same* pin in `printer.cfg` — the two are mutually
+    exclusive. That switch is physically installed but not wired: the Pico has no free gpio for it.
+  - `extruder_tool_start` (`filament_switch_sensor`, `^nhk:gpio3` in `nitehawk-36.cfg`): toolhead
+    switch at the extruder inlet. `_PAUSE_IF_PRINTING` is deliberately commented out of its
+    `runout_gcode` (with `RESET_STATUS` in its place) — the switch mount / ball bearing / filament
+    path tolerances mean filament must be pushed to one side to trigger it. That is a **mechanical**
+    fault, not an electrical one; the switch reports consistently when pressed. Toolhead was rebuilt
+    with new switches and ball 2026-10 and needs long-print testing before PAUSE is re-enabled. Its
+    `insert_gcode` runs `_AUTO_LOAD_FILAMENT`.
+  - `extruder_tool_end` (`filament_switch_sensor`, `^nhk:gpio13`): placeholder after the extruder;
+    reports only. Used by `_AUTO_LOAD_FILAMENT` to confirm the load reached the nozzle.
   - The `^` pullup is optional here: the Nitehawk-36 V1.4 filament header already has a 10K pull-up to
     3V3 (R16), a 100R series resistor to the MCU pin (R19), and a 100nF cap to GND (C27) forming an
     ~1ms RC debounce. It is set for parity with VT-1548, not because the pin would otherwise float.
+  - **Never put a bare `PAUSE` in a `runout_gcode`.** Use `_PAUSE_IF_PRINTING`
+    (`nerdygriffin-macros/filament_management.cfg`). `pause_on_runout: False` plus a gated PAUSE in
+    `runout_gcode` is intentional. Stock Klipper `PAUSE` sets `pause_resume.is_paused` even with no job
+    running and `SDCARD_PRINT_FILE` never clears it, so an idle-time runout leaks `is_paused=True` into
+    the next print, where `NOZZLE_STANDBY_COOLDOWN` (`client.cfg`) sees it and issues `M104 S150`
+    mid-print. That caused a 2026-10-07 abort (`Extrude below minimum temp` at 168 °C) that looked like
+    a heater failure. `PRINT_START` now runs `CLEAR_PAUSE` as a second line of defence. The helper keys
+    on `print_stats.state == "printing"` (written only by `virtual_sdcard`), not `idle_timeout.state`,
+    which reports `Printing` during any manual move.
 - LDO Nitehawk-36: Extruder definition in `nitehawk-36.cfg`; toolhead LEDs and bed neopixel configured in `printer.cfg`.
 
 ## Patterns & Conventions
