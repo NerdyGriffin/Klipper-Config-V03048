@@ -37,6 +37,9 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
   - `PRINT_START`: `CLEAR_PAUSE` (stale-pause guard) first, then heat soak based on bed temp, hot scrub via `CLEAN_NOZZLE`, re-home Z,
     `SMART_PARK` (KAMP), then purge: `SQUIGGLY_PURGE` when objects allow it, else `LINE_PURGE`.
   - `PRINT_END`: retract, park at the rear-right corner (Y rear-10, then X right-10), disable sensors, delayed save/shutdown.
+    Only the 0.8 mm `G10` firmware retract is left in the filament; the large Revo-era pull is now opt-in via
+    `nerdygriffin-macros/revo.cfg` (not included here). Do not reintroduce a big end-of-print retract: on the Dragon UHF it
+    freezes the molten tip above the heatbreak and jams the next PLA/PETG load.
 - Filament sensors (three defined, two active, on different MCUs):
   - `encoder_sensor` (`filament_motion_sensor`, SKR Pico `^gpio16`): flow/clog detection. Enabled after
     start, disabled on end and idle timeout. Its `runout_gcode` calls `_PAUSE_IF_PRINTING`. A
