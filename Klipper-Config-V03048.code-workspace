@@ -1,7 +1,7 @@
 // Voron 0.2 (V0-3048) Configuration Workspace
-// Folder order: Local config first (primary), shared macros second, remote VT-1548 third
+// Folder order: Local config first (primary), shared macros second, local clone of VT-1548 third
 // Local config: /home/pi/printer_data/config (this printer)
-// Remote config: /mnt/vt-1548/printer_data/config (NFS mount for cross-printer dev)
+// VT-1548 config: /home/pi/Klipper-Config-VT1548 (local git clone for cross-referencing; git pull to refresh)
 {
   "folders": [
     {
@@ -18,7 +18,7 @@
     },
     {
       "name": "VT-1548: config",
-      "path": "/mnt/vt-1548/printer_data/config"
+      "path": "/home/pi/Klipper-Config-VT1548"
     }
   ],
   "settings": {

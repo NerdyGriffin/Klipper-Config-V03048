@@ -7,7 +7,7 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 **File locations:**
 
 - **Local config**: `/home/pi/printer_data/config` (this printer)
-- **VT-1548 config**: `/mnt/vt-1548/printer_data/config` (NFS mount, writable for cross-printer dev)
+- **VT-1548 config**: `/home/pi/Klipper-Config-VT1548` (read-only git clone for cross-referencing, refreshed by `klipper-nerdygriffin-macros/dev/sync_peer_config.sh`)
 - **Macros repo**: `/home/pi/klipper-nerdygriffin-macros` (local, sync to VT-1548 via `dev/sync_macros_repo.sh`)
 
 ## Architecture Overview
