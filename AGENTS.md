@@ -41,7 +41,8 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
     `nerdygriffin-macros/revo.cfg` (not included here). Do not reintroduce a big end-of-print retract: on the Dragon UHF it
     freezes the molten tip above the heatbreak and jams the next PLA/PETG load.
 - Filament sensors (four defined, on different MCUs). The BTT SFS V2.0 supplies two of them, on its stock
-  split cable:
+  split cable. Both sections are shared with VT-1548 in `nerdygriffin-macros/filament_sensors.cfg`; only their
+  `switch_pin` lines live here, in `nerdygriffin-macros.cfg`:
   - `switch_sensor` (`filament_switch_sensor`, `^gpio16`, E0-STOP, which also powers the SFS at 5V): a
     plain normally-closed contact to GND. Reports only, as on VT-1548: its `runout_gcode` is a message
     plus `RESET_STATUS`. It must never pause; the toolhead switch owns the runout pause.
@@ -120,7 +121,7 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
 - All shared-macro overrides live in `nerdygriffin-macros.cfg`, **not** `printer.cfg`, grouped by upstream
   filename: `HEAT_SOAK` (`max_chamber_target`, `ext_assist_multiplier`), `_BELT_TENSION_VARS`
   (`belt_span_length`, `y_calibrated`), `_HOME_VARS`, `_LED_VARS`, `_NW_BRUSH_VARS` / `NW_BUCKET_POS`, the
-  LOAD/UNLOAD/PURGE distances and `_AUTO_LOAD_FILAMENT` (`load_distance`). Read current values there rather than trusting numbers in this file.
+  LOAD/UNLOAD/PURGE distances, the SFS `switch_pin`s (`filament_sensors.cfg`) and `_AUTO_LOAD_FILAMENT` (`load_distance`). Read current values there rather than trusting numbers in this file.
 - KAMP behavior: tweak Smart Park/Purge variables in `_KAMP_Settings` (`KAMP_Settings.cfg`); enable/disable KAMP modules via the
   `[include ./KAMP/*]` lines in `printer.cfg`, not `KAMP_Settings.cfg`.
 
