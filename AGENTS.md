@@ -40,11 +40,18 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
     Only the 0.8 mm `G10` firmware retract is left in the filament; the large Revo-era pull is now opt-in via
     `nerdygriffin-macros/revo.cfg` (not included here). Do not reintroduce a big end-of-print retract: on the Dragon UHF it
     freezes the molten tip above the heatbreak and jams the next PLA/PETG load.
-- Filament sensors (three defined, two active, on different MCUs):
-  - `encoder_sensor` (`filament_motion_sensor`, SKR Pico `^gpio16`): flow/clog detection. Enabled after
-    start, disabled on end and idle timeout. Its `runout_gcode` calls `_PAUSE_IF_PRINTING`. A
-    `switch_sensor` block sits commented out on the _same_ pin in `printer.cfg` — the two are mutually
-    exclusive. That switch is physically installed but not wired: the Pico has no free gpio for it.
+- Filament sensors (four defined, on different MCUs). The BTT SFS V2.0 supplies two of them, on its stock
+  split cable:
+  - `switch_sensor` (`filament_switch_sensor`, `^gpio16`, E0-STOP, which also powers the SFS at 5V): a
+    plain normally-closed contact to GND. Its `runout_gcode` calls `_PAUSE_IF_PRINTING`. Unlike VT-1548
+    this switch must pause, because the toolhead switch's pause is disabled (below), so nothing
+    downstream would catch a spool runout.
+  - `encoder_sensor` (`filament_motion_sensor`, `gpio22`, WD-DET): flow/clog detection. Enabled after
+    start, disabled on end and idle timeout. Its `runout_gcode` calls `_PAUSE_IF_PRINTING` only while
+    `switch_sensor` still sees filament (a jam); otherwise it just posts a message, matching VT-1548.
+    - The motion output drives 0/5V rather than being open-drain, so it must not reach the RP2040
+      directly. WD-DET's EL357N optocoupler isolates it: JP2 **off** (PNP mode, so pin 1 is not pulled
+      to 12/24V) and the P21 jumper on `P_S`–`IO22` (not `PROBE`). No `^`: R42 (10K) pulls `P_S` down.
   - `extruder_tool_start` (`filament_switch_sensor`, `^nhk:gpio3` in `nitehawk-36.cfg`): toolhead
     switch at the extruder inlet. `_PAUSE_IF_PRINTING` is deliberately commented out of its
     `runout_gcode` (with `RESET_STATUS` in its place) — the switch mount / ball bearing / filament
@@ -52,7 +59,8 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
     fault, not an electrical one; the switch reports consistently when pressed. Toolhead was rebuilt
     with new switches and ball 2026-10 and needs long-print testing before PAUSE is re-enabled. Its
     `insert_gcode` runs `_AUTO_LOAD_FILAMENT`.
-    - Deliberate split: the encoder pauses, the toolhead switch guards RESUME. `_CLIENT_VARIABLE` `runout_sensor` in `printer.cfg`
+    - Deliberate split: the SFS switch and encoder pause, the toolhead switch guards RESUME. If PAUSE
+      is ever re-enabled here, `switch_sensor` can go back to message-only, as on VT-1548. `_CLIENT_VARIABLE` `runout_sensor` in `printer.cfg`
       is `filament_switch_sensor extruder_tool_start`, so Mainsail `RESUME` is blocked while that switch reads empty.
   - `extruder_tool_end` (`filament_switch_sensor`, `^nhk:gpio13`): placeholder after the extruder;
     reports only. Used by `_AUTO_LOAD_FILAMENT` to confirm the load reached the nozzle.
