@@ -19,6 +19,10 @@
     {
       "name": "VT-1548: config",
       "path": "/home/pi/Klipper-Config-VT1548"
+    },
+    {
+      "name": "mcuflash",
+      "path": "/home/pi/mcuflash"
     }
   ],
   "settings": {
