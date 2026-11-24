@@ -143,6 +143,17 @@ This is a Klipper configuration for a Voron 0.2 (V0.3048) built around a BTT SKR
   ```
   The persistent threshold is `sg4_thrs` in `autotune.cfg` (TMC autotune); `driver_SGTHRS` is commented out in `printer.cfg`.
 - Input shaper: `[adxl345]` on the Nitehawk (`nitehawk-36.cfg`); `[resonance_tester]` tuning in `printer.cfg`.
+- Flash MCU firmware after a Klipper update with `mcuflash` (`~/mcuflash`, github.com/NerdyGriffin/mcuflash,
+  `[update_manager mcuflash]` in `moonraker.conf`). It reads MCU names and serial paths from this config:
+  ```bash
+  mcuflash list              # mcu = skr-pico, nhk = nitehawk-36; state and running firmware version
+  mcuflash klipper all       # review build config, build, flash through Katapult
+  mcuflash klipper nhk --dry-run
+  ```
+  Both boards run Katapult; `mcuflash katapult <mcu>` reinstalls it over BOOTSEL. Build configs live in
+  `~/mcuflash/boards/<board>/` and are shared with VT-1548; commit and push any config change the tool saves
+  there. Flashing needs an interactive terminal, so do not run it for the user without `--dry-run`. The old
+  `~/flash-k*.sh` scripts were retired on 2026-11-24 to `~/retired-flash-scripts-20261124/`.
 
 ## Terminal Command Best Practices
 
